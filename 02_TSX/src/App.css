@@ -1,0 +1,26 @@
+/* For transitions, add these in Tailwind configuration or extend if needed */
+.card-wrapper {
+  position: relative;
+  height: 300px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.5s, z-index 0.5s;
+}
+
+.card {
+  width: 90%;
+  max-width: 400px;
+  height: 200px;
+  border-radius: 1rem;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+  transform: translateY(0) scale(1);
+  z-index: 1;
+  transition: transform 0.3s ease, z-index 0.3s ease;
+}
+
+.card-wrapper:hover .card {
+  transform: translateY(-10%) scale(1.1);
+  z-index: 10;
+}
