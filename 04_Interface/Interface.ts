@@ -75,3 +75,5 @@ let people: person[] = [abjOne];
 function printPerson(person: person): void {
   console.log(person);
 }
+
+printPerson(abjOne);
