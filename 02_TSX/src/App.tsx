@@ -1,128 +1,65 @@
-// import React, { useEffect } from 'react';
-// import './App.css';
-// import 'locomotive-scroll/dist/locomotive-scroll.css';
 
-// import LocomotiveScroll from 'locomotive-scroll';
 
-// import CardOne from './03_project_lenis/cardOne';
-// import CardTwo from './03_project_lenis/cardTwo';
-// import CardThree from './03_project_lenis/cardThree';
-// import CardFour from './03_project_lenis/cardFour';
-// import CardFive from './03_project_lenis/cardFive';
+import { useEffect, useRef } from 'react';
+import Lenis from '@studio-freight/lenis';
+import CardOne from './Layout/cardOne';
+import CardTwo from './Layout/cardTwo';
+import CardThree from './Layout/cardThree';
+import CardFour from './Layout/cardFour';
+import CardFive from './Layout/cardFive';
+import Header from './Layout/header';
 
-// function App() {
-//   useEffect(() => {
-//     const scroll = new LocomotiveScroll({
-//       el: document.querySelector('[data-scroll-container]') as HTMLElement,
-//       smooth: true,
-//       getDirection: true,
-//     });
+function App() {
+  const lenisRef = useRef<Lenis | null>(null);
 
-//     return () => {
-//       scroll.destroy();
-//     };
-//   }, []);
+  useEffect(() => {
+    // Initialize Lenis
+    const lenis = new Lenis({
+      // smooth: true,
+    });
 
-//   return (
-//     <div className="bg-slate-900">
-//       {/* Locomotive-scroll container */}
-//       <div data-scroll-container>
-//         <section data-scroll-section>
-//           <CardOne data-scroll data-scroll-speed="2" />
-//           <CardTwo data-scroll data-scroll-speed="-2" />
-//           <CardThree data-scroll data-scroll-speed="3" />
-//           <CardFour data-scroll data-scroll-speed="-3" />
-//           <CardFive data-scroll data-scroll-speed="1" />
-//         </section>
-//       </div>
-//     </div>
-//   );
-// }
+    // Set reference
+    lenisRef.current = lenis;
 
-// export default App;
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
 
-// import React, { useRef, useEffect } from 'react';
-// import { Lenis } from '@studio-freight/react-lenis';
-// import './App.css';
+    requestAnimationFrame(raf);
 
-// import CardOne from './03_project_lenis/cardOne';
-// import CardTwo from './03_project_lenis/cardTwo';
-// import CardThree from './03_project_lenis/cardThree';
-// import CardFour from './03_project_lenis/cardFour';
-// import CardFive from './03_project_lenis/cardFive';
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
 
-// function App() {
-//   const cardsRef = useRef<HTMLDivElement[]>([]);
+  return (
+    <div className="bg-[#FFFFF0] min-h-screen text-4xl relative">
+      {/* Sticky Header */}
+      <Header className="sticky top-0 bg-[#FFFFF0] shadow-md z-10 w-screen h-auto" />
 
-//   useEffect(() => {
-//     const handleScroll = () => {
-//       cardsRef.current.forEach((card, index) => {
-//         console.log(`Processing card at index ${index}`);
-//         const rect = card.getBoundingClientRect();
-//         const centerY = window.innerHeight / 2;
+      {/* Scrollable Content */}
+      <div>
+        <section className="relative">
+          <div className="card-wrapper">
+            <CardOne className="card " />
+          </div>
+          <div className="card-wrapper">
+            <CardTwo className="card " />
+          </div>
+          <div className="card-wrapper">
+            <CardThree className="card " />
+          </div>
+          <div className="card-wrapper">
+            <CardFour className="card " />
+          </div>
+          <div className="card-wrapper">
+            <CardFive className="card " />
+          </div>
+        </section>
+      </div>
+    </div>
+  );
+}
 
-//         // Calculate overlap effect
-//         const offset = Math.max(0, centerY - rect.top) / centerY;
-//         card.style.transform = `translateY(-${offset * 50}px) scale(${
-//           1 + offset * 0.2
-//         })`;
-//         card.style.zIndex = `${10 + Math.round(offset * 10)}`;
-//       });
-//     };
-
-//     // Listen to scroll events
-//     window.addEventListener('scroll', handleScroll);
-//     return () => {
-//       window.removeEventListener('scroll', handleScroll);
-//     };
-//   }, []);
-
-//   return (
-//     <Lenis root>
-//       <div className="bg-slate-900">
-//         {/* Scroll container */}
-//         <div>
-//           <section className="scroll-section">
-//             <div
-//               ref={(el) => (cardsRef.current[0] = el!)}
-//               className="card"
-//               data-scroll
-//             >
-//               <CardOne />
-//             </div>
-//             <div
-//               ref={(el) => (cardsRef.current[1] = el!)}
-//               className="card"
-//               data-scroll
-//             >
-//               <CardTwo />
-//             </div>
-//             <div
-//               ref={(el) => (cardsRef.current[2] = el!)}
-//               className="card"
-//               data-scroll
-//             >
-//               <CardThree />
-//             </div>
-//             <div
-//               ref={(el) => (cardsRef.current[3] = el!)}
-//               className="card"
-//               data-scroll
-//             >
-//               <CardFour />
-//             </div>
-//             <div
-//               ref={(el) => (cardsRef.current[4] = el!)}
-//               className="card"
-//               data-scroll
-//             >
-//               <CardFive />
-//             </div>
-//           </section>
-//         </div>
-//       </div>
-//     </Lenis>
-//   );
-// }
-
-// export default App;
+export default App;
