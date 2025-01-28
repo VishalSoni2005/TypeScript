@@ -1,5 +1,4 @@
 
-
 import { useEffect, useRef } from 'react';
 import Lenis from '@studio-freight/lenis';
 import CardOne from './Layout/cardOne';
@@ -8,6 +7,7 @@ import CardThree from './Layout/cardThree';
 import CardFour from './Layout/cardFour';
 import CardFive from './Layout/cardFive';
 import Header from './Layout/header';
+
 
 function App() {
   const lenisRef = useRef<Lenis | null>(null);
@@ -32,6 +32,8 @@ function App() {
       lenis.destroy();
     };
   }, []);
+
+
 
   return (
     <div className="bg-[#FFFFF0] min-h-screen text-4xl relative">
